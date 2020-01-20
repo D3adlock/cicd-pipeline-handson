@@ -1,18 +1,26 @@
 ## 1. Install Docker Host
 
-## 2. Instantiate Jenkins
+https://docs.docker.com/docker-for-mac/install/
 
-## 3. Create a MultiBranch pipeline
+## 2. Start and Configure the Jenkins Server
 
-
-
+```
+# creates the internal docker network
 docker network create jenkins
 
+# pull and start the jenkins docker image
 docker pull jenkins:latest
-docker run -p 8080:8080 -p 50000:50000 --network jenkins -v /your/home:/var/jenkins_home jenkins
+docker run -p 8080:8080 -p 50000:50000 -v /your/home:/var/jenkins_home --network jenkins --hostname jenkins jenkins
+```
 
+## 3. Create the devenv Docker Container
 
+```
 docker build -t 'devenv' . 
-docker run -d -P --name devenv --network jenkins --hostname devenv devenv
-docker port devenv 22
-docker port devenv 8080
+docker run -d -p 8090:8080 -p 3001:22 --name devenv --network jenkins --hostname devenv devenv
+```
+
+## 4. Configure devenv container as docker-slave
+
+## 5. Create a multibranch pipeline for the project
+
