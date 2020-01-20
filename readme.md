@@ -9,11 +9,9 @@ https://docs.docker.com/docker-for-mac/install/
 docker network create jenkins
 
 # pull and start the jenkins docker image
-docker pull jenkins:latest
-docker run -p 8080:8080 -p 50000:50000 -v /Users/cgallarado/dev/nisum/cicd-pipeline-handson-jenkins-home:/var/jenkins_home --network jenkins --hostname jenkins jenkins:latest
+docker pull jenkins/jenkins:lts
+docker run -p 8080:8080 -p 50000:50000 --network jenkins --hostname jenkins jenkins/jenkins:lts
 ```
-
-REPLACE `/Users/cgallarado/dev/nisum/cicd-pipeline-handson-jenkins-home` with your own jenkinshome folder 
 
 ## 3. Create the devenv Docker Container
 
@@ -24,5 +22,18 @@ docker run -d -p 8090:8080 -p 3001:22 --name devenv --network jenkins --hostname
 
 ## 4. Configure devenv container as docker-slave
 
-## 5. Create a multibranch pipeline for the project
+#### 4.1 go to manage jenkins
+![Manage Jenkins](/images/1.png)
 
+#### 4.2 go to manage nodes
+![Manage Nodes](/images/2.png)
+
+#### 4.3 go to New Node 
+
+#### 4.3 configure as shown below
+![Slave Config](/images/3.png)
+![Creds](/images/4.png)
+
+## 5. Create a multibranch pipeline for the project
+![pipeline config](/images/5.png)
+![pipeline config](/images/6.png)

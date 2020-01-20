@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 
 RUN apt-get update && apt-get install -y openssh-server
 RUN mkdir /var/run/sshd
-RUN echo 'root:THEPASSWORDYOUCREATED' | chpasswd
+RUN echo 'root:somepass' | chpasswd
 RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 # SSH login fix. Otherwise user is kicked off after login
@@ -32,7 +32,7 @@ RUN export JAVA_HOME
 RUN apt-get -yq install nginx
 ADD hello.conf /etc/nginx/conf.d/
 ADD index.html /usr/share/nginx/html/
-run /etc/init.d/nginx restart
+RUN /etc/init.d/nginx start
 
 #install git
 RUN apt-get -yq install git
